@@ -1,10 +1,14 @@
+#ifndef MATRIX_HPP
+#define MATRIX_HPP
+
 #include <iostream>
 #include <list>
 #include "vector.hpp"
+#include "range.cpp"
 
 template <typename T>
 class MatrixX {
-    private:
+    protected:
         int num_rows;
         int num_cols;
         VectorX<T> data;
@@ -13,9 +17,11 @@ class MatrixX {
         // Constructor
         MatrixX(int rows, int cols);
 
-        MatrixX Zero(int rows, int cols);
+        static MatrixX Zero(int rows, int cols);
 
-        MatrixX One(int rows, int cols);
+        static MatrixX One(int rows, int cols);
+
+        static MatrixX Identity(int size);
 
         // Operators
         MatrixX operator+(const MatrixX& other) const;
@@ -28,10 +34,28 @@ class MatrixX {
 
         MatrixX operator/(const T& scalar) const;
 
+        MatrixX operator+=(const MatrixX& other);
+        MatrixX operator-=(const MatrixX& other);
+
+        VectorX<T> operator*(const VectorX<T>& other) const;
+
+        // Accessors
+        T& operator()(int i, int j);
+        const T& operator()(int i, int j) const;
+
+        std::vector<T> operator()(All, int j) const;
+        std::vector<T> operator()(int i, All) const;
+
+        MatrixX<T> operator()(Range row_range, Range col_range) const;
+        MatrixX<T> operator()(Range row_range, int j) const;
+        MatrixX<T> operator()(int i, Range col_range) const;
+
         // Utils
         std::list<int> shape() const;
 
         VectorX<T> flatten() const;
+
+        MatrixX<T> reshape(int new_rows, int new_cols) const;
 
         MatrixX transpose() const;
 
@@ -60,9 +84,13 @@ class MatrixS : public MatrixX<T> {
     MatrixS(int size) : MatrixX<T>(size, size) {}
 
     // Utils
-    T determinant() const {
-        // Implementation of determinant calculation
-        //...
-    }
+    T trace() const;
+
+    MatrixS<T> power(int n) const;
 
 };
+
+
+#include "matrix.cpp" // Include the implementation for templates
+
+#endif // MATRIX_HPP

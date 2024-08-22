@@ -19,8 +19,6 @@ class Vector3 : public VectorX<T> {
         const T& z() const { return this->data[2]; }
 
         // Specific utils
-        T dot(const Vector3<T>& other) const;
-
         Vector3<T> cross(const Vector3<T>& other) const;
 };
 

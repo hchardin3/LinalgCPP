@@ -1,22 +1,38 @@
 #include "matrix.hpp"
+#include "vector2.hpp"
+#include <list>
 
 template <typename T>
-class Matrix2 : public MatrixX<T> {
-    public:
-        // Construct
-        Matrix2() : MatrixX<T>(2, 2) {}
+class Matrix2 : public MatrixS<T> {
+public:
+    // Constructors
+    Matrix2();
+    Matrix2(const MatrixX<T>& mat);
+    Matrix2(const MatrixS<T>& mat);
 
-        static Matrix2 Zero() {
-            Matrix2 mat;
-            mat = MatrixX<T>::Zero(2, 2);
-            return mat;
-        }
+    // Operators
+    Vector2<T> operator*(const Vector2<T>& vec) const;
 
-        static Matrix2 One() {
-            Matrix2 mat;
-            mat = MatrixX<T>::One(2, 2);
-            return mat;
-        }
+    // Static methods
+    static Matrix2 Zero();
 
-        // Utils
+    static Matrix2 One();
+
+    static Matrix2 Identity();
+
+    static Matrix2 Rotation(T angle);
+
+    static Matrix2 Scaling(T scale);
+
+    // Determinant
+    T determinant() const;
+
+    // Inverse
+    Matrix2 inverse() const;
+
+    // Eigenvalues
+    std::list<T> eigenvalues() const;
+
+    // Positive definiteness
+    bool isPositiveDefinite() const;
 };
