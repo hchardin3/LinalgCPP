@@ -1,14 +1,12 @@
-#ifndef MATRIX_CPP
-#define MATRIX_CPP
-
 #include "matrix.hpp"
+#include "vector.hpp"
 
 template<typename T>
-MatrixX<T>::MatrixX(int rows, int cols) : num_rows(rows), num_cols(cols), data(VectorX<T>(num_rows * num_cols)) {}
+MatrixX<T>::MatrixX(int rows, int cols) : num_rows(rows), num_cols(cols), data(num_rows * num_cols) {}
 
 template<typename T>
 MatrixX<T> MatrixX<T>::Zero(int rows, int cols) {
-    MatrixX<T> result(num_rows * num_cols);
+    MatrixX<T> result(num_rows, num_cols);
     result.data = VectorX<T>::Zero(num_rows * num_cols);
     return result;
 }
@@ -318,6 +316,3 @@ MatrixS<T> MatrixS<T>::power(int n) const {
     }
 
 }
-
-
-#endif // MATRIX_IMPL_HPP

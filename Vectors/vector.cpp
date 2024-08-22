@@ -1,8 +1,9 @@
 #include "vector.hpp"
+#include "matrix.hpp"
 
 // Constructor
 template <typename T>
-VectorX<T>::VectorX(int size) : size(size), data(size) {}
+VectorX<T>::VectorX(int size) : Size(size), data(size) {}
 
 // Static Factory Methods
 template <typename T>
@@ -93,15 +94,16 @@ VectorX<T> VectorX<T>::operator/(const T& value) const {
 
 template <typename T>
 VectorX<T> VectorX<T>::operator*(const MatrixX<T>& matrix) const {
-    if (! is_transposed()) {
+    if (!is_transposed) {
         throw std::invalid_argument("Vector must be transposed for multiplication");
     }
-    if (size!= matrix.shape()[0]) {
+    std::list<int> shape = matrix.shape();
+    if (size != shape[0]) {
         throw std::invalid_argument("Vector size does not match matrix row size for multiplication");
     }
-    VectorX<T> result = Zero(matrix.shape()[1]);
+    VectorX<T> result = Zero(shape[1]);
     result.transpose();
-    for (int j = 0; j < matrix.shape()[1]; j++) {
+    for (int j = 0; j < shape[1]; j++) {
         for (int i = 0; i < size; i++) {
             result.data[j] += data[i] * matrix(i, j);
         }
@@ -190,7 +192,10 @@ T VectorX<T>::distance(const VectorX<T>& other) const {
 }
 
 template <typename T>
-int VectorX<T>::size() const {return size; }
+int VectorX<T>::size() const {return Size; }
+
+
+
 
 // Display
 template <typename T>

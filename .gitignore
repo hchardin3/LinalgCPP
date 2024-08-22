@@ -1,0 +1,62 @@
+# Ignore the build directory
+/build/
+
+# Ignore backup files
+/backup/
+
+# Ignore VSCode specific settings
+.vscode/
+
+# Ignore object files, executables, and libraries
+*.o
+*.obj
+*.exe
+*.out
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# Ignore compiled dynamic libraries
+*.dSYM/
+*.stackdump
+
+# Ignore temporary files created by the editor
+*~
+*.swp
+*.tmp
+*.log
+
+# Ignore directories created by cmake
+/CMakeFiles/
+/CMakeCache.txt
+/cmake_install.cmake
+/Makefile
+
+# Ignore compiled binary files
+*.bin
+
+# Ignore archives
+*.zip
+*.tar.gz
+*.tar.bz2
+*.7z
+*.rar
+
+# Ignore debug symbols
+*.debug
+
+# Ignore dependency resolution files
+/.vscode/
+
+# Ignore coverage reports
+*.gcno
+*.gcda
+*.gcov
+
+# Ignore test result files
+*.test
+
+# Ignore MacOS specific files
+.DS_Store

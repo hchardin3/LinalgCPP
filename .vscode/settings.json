@@ -72,6 +72,9 @@
         "format": "cpp",
         "strstream": "cpp",
         "cfenv": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "hash_map": "cpp",
+        "hash_set": "cpp",
+        "shared_mutex": "cpp"
     }
 }

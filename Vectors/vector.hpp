@@ -1,17 +1,21 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
+#include "LinalgCPP.hpp"
 #include <iostream>
 #include <cmath>
 #include <stdexcept>
 #include <random>
 #include <vector>
-#include "matrix.hpp"
+#include <list>
+
+template<typename T>
+class MatrixX;
 
 template<typename T>
 class VectorX {
 protected:
-    int size;
+    int Size;
     std::vector<T> data;
     bool is_transposed = false; // True if the VectorX is transposed (row VectorX), false by default (column VectorX)
     
@@ -45,6 +49,8 @@ public:
     T distance(const VectorX<T>& other) const;
     int size() const;
 
+
+
     // Display
     void display() const;
 };
@@ -59,6 +65,12 @@ class VectorXi : public VectorX<int> {
 public:
     // Constructor
     VectorXi(int size) : VectorX<int>(size) {}
+};
+
+class VectorXf : public VectorX<float> {
+public:
+    // Constructor
+    VectorXf(int size) : VectorX<float>(size) {}
 };
 
 #endif // VECTOR_HPP

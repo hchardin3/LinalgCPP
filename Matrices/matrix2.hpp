@@ -36,3 +36,18 @@ public:
     // Positive definiteness
     bool isPositiveDefinite() const;
 };
+
+class Matrix2d : public Matrix2<double> {
+    public:
+    Matrix2d(int rows, int cols) : Matrix2<double>() {}
+};
+
+class Matrix2i : public Matrix2<int> {
+    public:
+    Matrix2i(int rows, int cols) : Matrix2<int>() {}
+};
+
+class Matrix2f : public Matrix2<float> {
+    public:
+    Matrix2f(int rows, int cols) : Matrix2<float>() {}
+};

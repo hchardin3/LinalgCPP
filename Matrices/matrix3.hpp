@@ -40,3 +40,18 @@ public:
     // Positive definiteness
     bool isPositiveDefinite() const;
 };
+
+class Matrix3d : public Matrix3<double> {
+    public:
+    Matrix3d(int rows, int cols) : Matrix3<double>() {}
+};
+
+class Matrix3i : public Matrix3<int> {
+    public:
+    Matrix3i(int rows, int cols) : Matrix3<int>() {}
+};
+
+class Matrix3f : public Matrix3<float> {
+    public:
+    Matrix3f(int rows, int cols) : Matrix3<float>() {}
+};

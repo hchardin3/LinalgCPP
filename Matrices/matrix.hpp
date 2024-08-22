@@ -1,10 +1,12 @@
-#ifndef MATRIX_HPP
-#define MATRIX_HPP
+#pragma once
 
+#include "LinalgCPP.hpp"
 #include <iostream>
 #include <list>
-#include "vector.hpp"
-#include "range.cpp"
+#include "range.hpp"
+
+template<typename T>
+class VectorX;
 
 template <typename T>
 class MatrixX {
@@ -89,8 +91,3 @@ class MatrixS : public MatrixX<T> {
     MatrixS<T> power(int n) const;
 
 };
-
-
-#include "matrix.cpp" // Include the implementation for templates
-
-#endif // MATRIX_HPP

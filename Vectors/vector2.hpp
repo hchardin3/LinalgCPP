@@ -1,3 +1,4 @@
+#include "LinalgCPP.hpp"
 #include "vector.hpp"
 #include "matrix2.hpp"
 
