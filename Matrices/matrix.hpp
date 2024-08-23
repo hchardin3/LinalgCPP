@@ -1,93 +1,101 @@
 #pragma once
 
-#include "LinalgCPP.hpp"
+#include "../LinalgCPP.hpp"
 #include <iostream>
-#include <list>
+#include <utility>
+#include <vector>
+#include <type_traits>
+#include <limits>
 #include "range.hpp"
 
-template<typename T>
-class VectorX;
+enum class NormType {
+    L1 = 1,
+    L2 = 2,
+    // Add more norms as needed
+    Inf = std::numeric_limits<int>::max()  // Representing infinity norm
+};
 
-template <typename T>
+constexpr int DynamicSize = -1;
+
+template<typename T, int Rows, int Cols>
 class MatrixX {
     protected:
-        int num_rows;
-        int num_cols;
-        VectorX<T> data;
-
+        std::vector<T> data;
+        int actual_rows;
+        int actual_cols;
+    
     public:
-        // Constructor
-        MatrixX(int rows, int cols);
+        static constexpr int num_rows = Rows;
+        static constexpr int num_cols = Cols;
 
-        static MatrixX Zero(int rows, int cols);
+    // Constructors
+    MatrixX();
 
-        static MatrixX One(int rows, int cols);
+    static MatrixX Zero();
 
-        static MatrixX Identity(int size);
+    static MatrixX One();
 
-        // Operators
-        MatrixX operator+(const MatrixX& other) const;
+    // Accessors
+    T& operator()(int i, int j);
+    const T& operator()(int i, int j) const;
 
-        MatrixX operator-(const MatrixX& other) const;
+    // MatrixX<T> operator()(All, int j) const;
+    // MatrixX<T> operator()(int i, All) const;
 
-        MatrixX operator*(const MatrixX& other) const;
+    // MatrixX<T> operator()(Range row_range, Range col_range) const;
+    // MatrixX<T> operator()(Range row_range, int j) const;
+    // MatrixX<T> operator()(int i, Range col_range) const;
 
-        MatrixX operator*(const T& scalar) const;
+    MatrixX<T, Rows, 1> row(int i) const;
 
-        MatrixX operator/(const T& scalar) const;
+    MatrixX<T, 1, Cols> col(int j) const;
 
-        MatrixX operator+=(const MatrixX& other);
-        MatrixX operator-=(const MatrixX& other);
+    // Operators
+    MatrixX operator+(const MatrixX& other) const;
 
-        VectorX<T> operator*(const VectorX<T>& other) const;
+    MatrixX operator-(const MatrixX& other) const;
 
-        // Accessors
-        T& operator()(int i, int j);
-        const T& operator()(int i, int j) const;
+    MatrixX operator+=(const MatrixX& other);
 
-        std::vector<T> operator()(All, int j) const;
-        std::vector<T> operator()(int i, All) const;
+    MatrixX operator-=(const MatrixX& other);
 
-        MatrixX<T> operator()(Range row_range, Range col_range) const;
-        MatrixX<T> operator()(Range row_range, int j) const;
-        MatrixX<T> operator()(int i, Range col_range) const;
+    MatrixX operator*(const T& scalar) const;
 
-        // Utils
-        std::list<int> shape() const;
+    MatrixX operator/(const T& scalar) const;
 
-        VectorX<T> flatten() const;
+    MatrixX operator*=(const T& scalar);
 
-        MatrixX<T> reshape(int new_rows, int new_cols) const;
+    MatrixX operator/=(const T& scalar);
 
-        MatrixX transpose() const;
+    template<int OtherRows, int OtherCols>
+    MatrixX<T, Rows, OtherCols> operator*(const MatrixX<T, OtherRows, OtherCols>& other) const;
 
-        // Display
-        void display() const;
+    // Other functions
+    std::pair<int, int> shape() const;
+
+    MatrixX<T, Cols, Rows> transpose() const;
+
+    template<int NewRows, int NewCols>
+    MatrixX<T, NewRows, NewCols> reshape(int NewRows, int NewCols) const;
+
+    MatrixX<T, 1, Rows * Cols> flatten() const;
+
+    // Norm methods
+
+    T norm(NormType type = NormType::L2) const;
+
+    MatrixX normalize() const;
+
+    // Display
+    void display() const;
+    
 };
 
-class MatrixXd : public MatrixX<double> {
-    public:
-    MatrixXd(int rows, int cols) : MatrixX<double>(rows, cols) {}
-};
+template<int Rows, int Cols>
+using MatrixXd = MatrixX<double, Rows, Cols>;
 
-class MatrixXi : public MatrixX<int> {
-    public:
-    MatrixXi(int rows, int cols) : MatrixX<int>(rows, cols) {}
-};
+template<int Rows, int Cols>
+using MatrixXi = MatrixX<int, Rows, Cols>;
 
-class MatrixXf : public MatrixX<float> {
-    public:
-    MatrixXf(int rows, int cols) : MatrixX<float>(rows, cols) {}
-};
-
-template <typename T>
-class MatrixS : public MatrixX<T> {
-    public:
-    MatrixS(int size) : MatrixX<T>(size, size) {}
-
-    // Utils
-    T trace() const;
-
-    MatrixS<T> power(int n) const;
-
-};
+template<int Rows, int Cols>
+using MatrixXf = MatrixX<float, Rows, Cols>;

@@ -1,19 +1,16 @@
 #include "vector2.hpp"
 
-template<typename T>
-Vector2<T> Vector2<T>::operator*(const Matrix2<T>& mat) const {
-    if (!isTransposed()) {
-        throw std::runtime_error("Vector must be transposed for line multiplication with Matrix");
-    }
-    return Vector2(
-        mat(0, 0) * this->x() + mat(1, 0) * this->y(),
-        mat(0, 1) * this->x() + mat(1, 1) * this->y()
-    );
-    
-}
+template <typename T>
+Vector2<T>::Vector2() : VectorX<T, 2>() {}
 
 template <typename T>
-T Vector2<T>::angle(const Vector2& other) const {
+Vector2<T>::Vector2(const T& x, const T& y) : VectorX<T, 2>() {
+        this->data[0] = x;
+        this->data[1] = y;
+    }
+
+template <typename T>
+T Vector2<T>::angle(const Vector2<T>& other) const {
     T dot_product = this->dot(other);
     T mags = this->magnitude() * other.magnitude();
     if(mags == 0) {

@@ -1,4 +1,4 @@
-#include "LinalgCPP.hpp"
+#include "../LinalgCPP.hpp"
 #include <iostream>
 
 int main() {
@@ -16,7 +16,7 @@ int main() {
     v2.display();
 
     // Performing arithmetic operations
-    VectorXd v3 = v1 + 3 * v2;  // v3 should be [3, 3, 3, 3, 3]
+    VectorXd v3 = v1 + v2 * 3;  // v3 should be [3, 3, 3, 3, 3]
 
     std::cout << "Vector v3 (v1 + 3 * v2): ";
     v3.display();
@@ -29,7 +29,7 @@ int main() {
     // Matrix and Vector multiplication test
     std::cout << "Testing MatrixXd...\n";
     
-    MatrixXd m1(5, 5); // Assuming there's a way to initialize or set matrix values
+    MatrixXd m1 = MatrixXd::One(5, 5); // Assuming there's a way to initialize or set matrix values
     // Set some values in m1 for a meaningful test, e.g., an identity matrix or any predefined matrix.
     
     VectorXd v4 = m1 * v2; // This operation depends on your MatrixX implementation

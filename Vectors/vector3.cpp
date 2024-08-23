@@ -1,10 +1,10 @@
 #include "vector3.hpp"
 
 template<typename T>
-Vector3<T>::Vector3() : VectorX<T>(3) {}
+Vector3<T>::Vector3() : VectorX<T, 3>() {}
 
 template<typename T>
-Vector3<T>::Vector3(const T& x, const T& y, const T& z) : VectorX<T>(3) {
+Vector3<T>::Vector3(const T& x, const T& y, const T& z) : VectorX<T, 3>() {
     this->data[0] = x;
     this->data[1] = y;
     this->data[2] = z;

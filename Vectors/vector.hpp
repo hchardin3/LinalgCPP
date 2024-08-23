@@ -1,76 +1,31 @@
-#ifndef VECTOR_HPP
-#define VECTOR_HPP
+#pragma once
 
-#include "LinalgCPP.hpp"
+#include "../LinalgCPP.hpp"
 #include <iostream>
-#include <cmath>
-#include <stdexcept>
-#include <random>
+#include <utility>
 #include <vector>
-#include <list>
+#include <type_traits>
+#include "range.hpp"
 
-template<typename T>
-class MatrixX;
-
-template<typename T>
-class VectorX {
-protected:
-    int Size;
-    std::vector<T> data;
-    bool is_transposed = false; // True if the VectorX is transposed (row VectorX), false by default (column VectorX)
-    
+template <typename T, int Size>
+class VectorX : public MatrixX<T, Size, 1> {
 public:
     // Constructor
-    VectorX(int size = 10);
+    VectorX();
 
-    static VectorX<T> Zero(int size);
-    static VectorX<T> One(int size);
-    static VectorX<T> Unit(int size, int direction);
-    static VectorX<T> Random(int size, T min, T max);
+    // Unit vector function
+    VectorX Unit(int n) const;
 
-    // Operators
-    VectorX<T> operator+(const VectorX<T>& other) const;
-    VectorX<T> operator-(const VectorX<T>& other) const;
-    VectorX<T> operator*(const T& value) const;
-    VectorX<T> operator/(const T& value) const;
-    VectorX<T> operator*(const MatrixX<T>& matrix) const;
+    // Overloading the [] operator
+    T& operator[](int i);
 
-    VectorX<T> operator+=(const VectorX<T>& other);
-    VectorX<T> operator-=(const VectorX<T>& other);
+    const T& operator[](int i) const;
 
-    T operator[](int index) const;
+    // Overloading the () operator
+    T& operator()(int i);
 
-    // Utils
-    bool isTransposed() const;
-    void transpose();
-    T norm() const;
-    VectorX<T> normalize() const;
-    T dot(const VectorX<T>& other) const;
-    T distance(const VectorX<T>& other) const;
-    int size() const;
+    const T& operator()(int i) const;
 
-
-
-    // Display
-    void display() const;
+    // Additional vector-specific methods can be added here
+    T dot(const VectorX& other) const;
 };
-
-class VectorXd : public VectorX<double> {
-public:
-    // Constructor
-    VectorXd(int size) : VectorX<double>(size) {}
-};
-
-class VectorXi : public VectorX<int> {
-public:
-    // Constructor
-    VectorXi(int size) : VectorX<int>(size) {}
-};
-
-class VectorXf : public VectorX<float> {
-public:
-    // Constructor
-    VectorXf(int size) : VectorX<float>(size) {}
-};
-
-#endif // VECTOR_HPP

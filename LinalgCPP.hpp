@@ -3,6 +3,7 @@
 
 #include "vector.hpp"
 #include "matrix.hpp"
+#include "square_matrix.hpp"
 
 namespace LinalgCPP {
     class VectorX;
