@@ -9,6 +9,9 @@
 #include "matrix3.hpp"
 
 template <typename T>
+class Vector3;
+
+template <typename T>
 class RowVector3 : public Vector<T, 3> {
     public:
     // Constructor
@@ -19,10 +22,10 @@ class RowVector3 : public Vector<T, 3> {
     RowVector3(const T& x, const T& y, const T& z);
 
     // Special constructors
-    RowVector3 Zero();
+    static RowVector3 Zero();
 
-    RowVector3 One();
-    RowVector3 Unit(int direction);
+    static RowVector3 One();
+    static RowVector3 Unit(int direction);
 
     // Operators
     RowVector3 operator+(const RowVector3& other) const;
@@ -56,7 +59,7 @@ class RowVector3 : public Vector<T, 3> {
 
 };
 
-#include "vector3.inl"
+#include "row_vector3.inl"
 
 // Custom vector types
 using RowVector3f = RowVector3<float>;

@@ -12,7 +12,7 @@ Vector3<T>::Vector3(const T& x, const T& y, const T& z) : Vector<T, 3>() {
 
 template<typename T>
 Vector3<T>::Vector3(const Vector<T, 3>& vector) : Vector<T, 3>() {
-    this.data = vector.data;
+    this->data = vector.data;
 }
 
 template<typename T>
@@ -35,7 +35,6 @@ Vector3<T> Vector3<T>::Unit(int direction) {
     }
 }
 
-// Specific utils
 template<typename T>
 Vector3<T> Vector3<T>::cross(const Vector3<T>& other) const {
     return Vector3<T>(

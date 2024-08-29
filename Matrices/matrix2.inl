@@ -8,17 +8,17 @@ template<typename T>
 Matrix2<T>::Matrix2(const Matrix<T, 2, 2>& m) : MatrixS<T, 2>(m) {}
 
 template<typename T>
-Matrix2<T> Matrix2<T>::Zero() const  {
+Matrix2<T> Matrix2<T>::Zero()  {
     return Matrix2<T>(MatrixS<T, 2>::Zero(2));
 }
 
 template<typename T>
-Matrix2<T> Matrix2<T>::One() const {
+Matrix2<T> Matrix2<T>::One() {
     return Matrix2<T>(MatrixS<T, 2>::One(2));
 }
 
 template<typename T>
-Matrix2<T> Matrix2<T>::Identity() const  {
+Matrix2<T> Matrix2<T>::Identity()  {
     return Matrix2<T>(MatrixS<T, 2>::Identity(2));
 }
 

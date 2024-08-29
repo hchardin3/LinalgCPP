@@ -14,7 +14,17 @@ RowVector<T, Size>::RowVector(const Matrix<T, 1, Size>& other) {
 }
 
 template <typename T, int Size>
-RowVector<T, Size> RowVector<T, Size>::Unit(int n) const { 
+RowVector<T, Size> RowVector<T, Size>::Zero(int n) {
+    return RowVector<T, Size>(Matrix<T, 1, Size>::Zero(1, n));
+}
+
+template <typename T, int Size>
+RowVector<T, Size> RowVector<T, Size>::One(int n) {
+    return RowVector<T, Size>(Matrix<T, 1, Size>::Ones(1, n));
+}
+
+template <typename T, int Size>
+RowVector<T, Size> RowVector<T, Size>::Unit(int n) { 
         if (n < 0) {n += Size;}  // Handle negative indices
         if (n < 0 || n >= Size) {
             throw std::out_of_range("Index out of range for unit vector");

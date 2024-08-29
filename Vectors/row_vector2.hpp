@@ -20,10 +20,10 @@ class RowVector2 : public RowVector<T, 2> {
     RowVector2(const T& x, const T& y);
 
     // Special constructors
-    RowVector2 Zero();
+    static RowVector2 Zero();
 
-    RowVector2 One();
-    RowVector2 Unit(int direction);
+    static RowVector2 One();
+    static RowVector2 Unit(int direction);
 
     // Operators
     RowVector2 operator+(const RowVector2& other) const;

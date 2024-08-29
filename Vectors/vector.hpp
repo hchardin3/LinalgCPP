@@ -23,11 +23,11 @@ public:
     Vector(const Matrix<T, Size, 1>& mat);
 
     // Unit vector function
-    Vector Zero(int size = Size);
+    static Vector Zero(int size = Size);
 
-    Vector One(int size = Size);
+    static Vector One(int size = Size);
 
-    Vector Unit(int size = Size, int direction = 0);
+    static Vector Unit(int size = Size, int direction = 0);
 
     // Operators
     Vector operator+(const Vector& other) const;

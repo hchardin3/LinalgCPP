@@ -14,11 +14,11 @@ public:
     Matrix3(const MatrixS<T, 3>& m);
 
     // Generation methods
-    Matrix3 Zero() const;
+    static Matrix3 Zero();
 
-    Matrix3 One() const;
+    static Matrix3 One();
 
-    Matrix3 Identity() const;
+    static Matrix3 Identity();
 
     // Operators
     Matrix3 operator+(const Matrix3& other) const;

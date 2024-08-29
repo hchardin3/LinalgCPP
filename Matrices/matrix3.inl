@@ -12,17 +12,17 @@ Matrix3<T>::Matrix3(const MatrixS<T, 3>& m) : MatrixS<T, 3>(m) {}
 
 // Generation methods
 template<typename T>
-Matrix3<T> Matrix3<T>::Zero() const {
+Matrix3<T> Matrix3<T>::Zero() {
     return Matrix3<T>(Matrix<T, 3, 3>::Zero(3));
 }
 
 template<typename T>
-Matrix3<T> Matrix3<T>::One() const {
+Matrix3<T> Matrix3<T>::One() {
     return Matrix3<T>(Matrix<T, 3, 3>::One(3));
 }
 
 template<typename T>
-Matrix3<T> Matrix3<T>::Identity() const {
+Matrix3<T> Matrix3<T>::Identity() {
     return Matrix3<T>(MatrixS<T, 3>::Identity(3));
 }
 

@@ -11,11 +11,11 @@ public:
     Matrix2();
     Matrix2(const Matrix<T, 2, 2>& m);
 
-    Matrix2 Zero() const;
+    static Matrix2 Zero();
 
-    Matrix2 One() const;
+    static Matrix2 One();
 
-    Matrix2 Identity() const;
+    static Matrix2 Identity();
 
     // Operators
 

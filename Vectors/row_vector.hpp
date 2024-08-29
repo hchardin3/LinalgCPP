@@ -23,7 +23,9 @@ public:
     RowVector(const Matrix<T, 1, Size>& other);
 
     // Unit vector function
-    RowVector Unit(int n) const;
+    static RowVector Zero(int n);
+    static RowVector One(int n);
+    static RowVector Unit(int n);
 
     // Operators
     RowVector operator+(const RowVector& other) const;

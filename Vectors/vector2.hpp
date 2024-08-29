@@ -20,11 +20,11 @@ class Vector2 : public Vector<T, 2> {
 
     Vector2(const Vector<T, 2>& vector);
 
-    Vector2 Zero();
+    static Vector2 Zero();
 
-    Vector2 One();
+    static Vector2 One();
 
-    Vector2 Unit(int direction);
+    static Vector2 Unit(int direction);
 
     // Operators
     Vector2 operator+(const Vector2& other) const;

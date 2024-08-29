@@ -20,11 +20,11 @@ class Vector3 : public Vector<T, 3> {
 
     Vector3(const Vector<T, 3>& vector);
 
-    Vector3 Zero();
+    static Vector3 Zero();
 
-    Vector3 One();
+    static Vector3 One();
 
-    Vector3 Unit(int direction);
+    static Vector3 Unit(int direction);
 
     // Access x, y, z directly
     T& x() { return this->data[0]; }
@@ -40,12 +40,10 @@ class Vector3 : public Vector<T, 3> {
     Vector3<T> cross(const Vector3<T>& other) const;
 
     // Rewrite transpose
-    RowVector3<T> transpose() const override;
-    
-
+    RowVector3<T> transpose() const;
 };
 
-#include "vector3.inl"
+#include "vector3.inl" // Include implementation here, at the end of the header
 
 // Custom vector types
 using Vector3f = Vector3<float>;
