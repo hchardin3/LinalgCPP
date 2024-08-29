@@ -1,21 +1,47 @@
 #pragma once
 
-#include "../LinalgCPP.hpp"
 #include <iostream>
 #include <utility>
 #include <vector>
 #include <type_traits>
-#include "range.hpp"
+#include "matrix.hpp"
 
 template<typename T, int Size>
-class MatrixS : public MatrixX<T, Size, Size> {
-    public:
-
-    // Class constructors
+class MatrixS : public Matrix<T, Size, Size> {
+public:
+    // Constructors
     MatrixS();
-    MatrixS(const MatrixX<T, Size, Size>& m);
+    MatrixS(const Matrix<T, Size, Size>& m);
 
-    static MatrixS Identity();
+    MatrixS(int size);
+
+    static MatrixS<T, Size> Zero(int size);
+
+    static MatrixS<T, Size> One(int size);
+
+    static MatrixS Identity(int size);
+
+    // Operators
+
+    MatrixS operator+(const MatrixS<T, Size>& other) const;
+
+    MatrixS operator-(const MatrixS<T, Size>& other) const;
+
+    MatrixS operator*(const MatrixS<T, Size>& other) const;
+
+    MatrixS operator*(const T& scalar) const;
+
+    MatrixS operator/(const T& scalar) const;
+
+    MatrixS& operator+=(const MatrixS<T, Size>& other);
+
+    MatrixS& operator-=(const MatrixS<T, Size>& other);
+
+    MatrixS& operator*=(const MatrixS<T, Size>& other);
+
+    MatrixS& operator*=(const T& scalar);
+
+    MatrixS& operator/=(const T& scalar);
 
     // Class methods
     T trace() const;
@@ -27,11 +53,9 @@ class MatrixS : public MatrixX<T, Size, Size> {
     MatrixS<T, Size> inverse() const;
 };
 
-template<int Size>
-using MatrixSd = MatrixS<double, Size>;
+#include "square_matrix.inl"
 
-template<int Size>
-using MatrixSi = MatrixS<int, Size>;
-
-template<int Size>
-using MatrixSf = MatrixS<float, Size>;
+// Alias templates for common matrix types
+using MatrixSd = MatrixS<double, DynamicSize>;
+using MatrixSi = MatrixS<int, DynamicSize>;
+using MatrixSf = MatrixS<float, DynamicSize>;

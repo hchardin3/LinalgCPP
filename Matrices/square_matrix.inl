@@ -1,21 +1,93 @@
 #include "square_matrix.hpp"
 
+// Constructors
 template <typename T, int Size>
-MatrixS<T, Size>::MatrixS() : MatrixX<T, Size, Size>() {}
+MatrixS<T, Size>::MatrixS() : Matrix<T, Size, Size>() {}
 
 template <typename T, int Size>
-MatrixS<T, Size>::MatrixS(const MatrixX<T, Size, Size>& m) : MatrixX<T, Size, Size>(m) {}
+MatrixS<T, Size>::MatrixS(const Matrix<T, Size, Size>& m) : Matrix<T, Size, Size>(m) {}
 
 template <typename T, int Size>
-MatrixS<T, Size> MatrixS<T, Size>::Identity() {
-    MatrixS<T, Size> result = MatrixS<T, Size>::Zero();
+MatrixS<T, Size>::MatrixS(int size) : Matrix<T, Size, Size>(size, size) {}
+
+template <typename T, int Size>
+MatrixS<T, Size> MatrixS<T, Size>::Zero(int size) {
+    return MatrixS<T, Size>(Matrix<T, Size, Size>::Zero(size, size));
+}
+
+template <typename T, int Size>
+MatrixS<T, Size> MatrixS<T, Size>::One(int size) {
+    return MatrixS<T, Size>(Matrix<T, Size, Size>::One(size, size));
+}
+
+// Identity matrix
+template <typename T, int Size>
+MatrixS<T, Size> MatrixS<T, Size>::Identity(int size) {
+    MatrixS<T, Size> result = MatrixS<T, Size>::Zero(size);  // Adjust for dynamic size
     for (int i = 0; i < Size; ++i) {
         result(i, i) = T(1);
     }
     return result;
 }
 
-// Class methods
+// Operators
+
+template <typename T, int Size>
+MatrixS<T, Size> MatrixS<T, Size>::operator+(const MatrixS<T, Size>& other) const {
+    return MatrixS<T, Size>(*this + other);
+}
+
+template <typename T, int Size>
+MatrixS<T, Size> MatrixS<T, Size>::operator-(const MatrixS<T, Size>& other) const {
+    return MatrixS<T, Size>(*this - other);
+}
+
+template <typename T, int Size>
+MatrixS<T, Size> MatrixS<T, Size>::operator*(const MatrixS<T, Size>& other) const {
+    return MatrixS<T, Size>(*this * other);
+}
+
+template <typename T, int Size>
+MatrixS<T, Size> MatrixS<T, Size>::operator*(const T& scalar) const {
+    return MatrixS<T, Size>(*this * scalar);
+}
+
+template <typename T, int Size>
+MatrixS<T, Size> MatrixS<T, Size>::operator/(const T& scalar) const {
+    return MatrixS<T, Size>(*this / scalar);
+}
+
+template <typename T, int Size>
+MatrixS<T, Size>& MatrixS<T, Size>::operator+=(const MatrixS<T, Size>& other) {
+    *this = *this + other;
+    return MatrixS<T, Size>(*this);
+}
+
+template <typename T, int Size>
+MatrixS<T, Size>& MatrixS<T, Size>::operator-=(const MatrixS<T, Size>& other) {
+    *this = *this - other;
+    return MatrixS<T, Size>(*this);
+}
+
+template <typename T, int Size>
+MatrixS<T, Size>& MatrixS<T, Size>::operator*=(const MatrixS<T, Size>& other) {
+    *this = *this * other;
+    return MatrixS<T, Size>(*this);
+}
+
+template <typename T, int Size>
+MatrixS<T, Size>& MatrixS<T, Size>::operator*=(const T& scalar) {
+    *this = *this * scalar;
+    return MatrixS<T, Size>(*this);
+}
+
+template <typename T, int Size>
+MatrixS<T, Size>& MatrixS<T, Size>::operator/=(const T& scalar) {
+    *this = *this / scalar;
+    return MatrixS<T, Size>(*this);
+}
+
+// Trace
 template <typename T, int Size>
 T MatrixS<T, Size>::trace() const {
     T sum = T(0);
@@ -25,6 +97,7 @@ T MatrixS<T, Size>::trace() const {
     return sum;
 }
 
+// Matrix power
 template <typename T, int Size>
 MatrixS<T, Size> MatrixS<T, Size>::power(int n) const {
     if (n < 0) {
@@ -38,20 +111,21 @@ MatrixS<T, Size> MatrixS<T, Size>::power(int n) const {
     return result;
 }
 
+// Determinant
 template<typename T, int Size>
 T MatrixS<T, Size>::determinant() const {
     static_assert(Size > 0, "Matrix size must be greater than 0");
 
     if constexpr (Size == 1) {
-        return this->data[0]; // Determinant of a 1x1 matrix is the element itself
+        return (*this)(0, 0);  // Determinant of a 1x1 matrix is the element itself
     } else if constexpr (Size == 2) {
         // Determinant of a 2x2 matrix: ad - bc
-        return this->data[0] * this->data[3] - this->data[1] * this->data[2];
+        return (*this)(0, 0) * (*this)(1, 1) - (*this)(0, 1) * (*this)(1, 0);
     } else if constexpr (Size == 3) {
         // Determinant of a 3x3 matrix:
-        return this->data[0] * (this->data[4] * this->data[8] - this->data[5] * this->data[7]) -
-               this->data[1] * (this->data[3] * this->data[8] - this->data[5] * this->data[6]) +
-               this->data[2] * (this->data[3] * this->data[7] - this->data[4] * this->data[6]);
+        return (*this)(0, 0) * ((*this)(1, 1) * (*this)(2, 2) - (*this)(1, 2) * (*this)(2, 1)) -
+               (*this)(0, 1) * ((*this)(1, 0) * (*this)(2, 2) - (*this)(1, 2) * (*this)(2, 0)) +
+               (*this)(0, 2) * ((*this)(1, 0) * (*this)(2, 1) - (*this)(1, 1) * (*this)(2, 0));
     } else {
         // For larger matrices, use recursive expansion by minors
         T det = T(0);
@@ -64,12 +138,13 @@ T MatrixS<T, Size>::determinant() const {
                 }
             }
             T sign = (j % 2 == 0) ? T(1) : T(-1);
-            det += sign * this->data[j] * submatrix.determinant();
+            det += sign * (*this)(0, j) * submatrix.determinant();
         }
         return det;
     }
 }
 
+// Inverse
 template<typename T, int Size>
 MatrixS<T, Size> MatrixS<T, Size>::inverse() const {
     T det = this->determinant();
@@ -109,3 +184,5 @@ MatrixS<T, Size> MatrixS<T, Size>::inverse() const {
     // Divide the adjugate matrix by the determinant to get the inverse
     return adjugate / det;
 }
+
+

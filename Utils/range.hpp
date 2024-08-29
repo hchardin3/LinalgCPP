@@ -1,5 +1,5 @@
-#include <stdexcept>
-#include <vector>
+#ifndef RANGE_HPP
+#define RANGE_HPP
 
 struct Range {
     int start;
@@ -10,3 +10,5 @@ struct Range {
 struct All {
     // Represents the entire row or column
 };
+
+#endif // RANGE_HPP

@@ -1,19 +1,30 @@
 #pragma once
 
-#include "../LinalgCPP.hpp"
 #include <iostream>
 #include <utility>
 #include <vector>
 #include <type_traits>
-#include "range.hpp"
+#include "vector.hpp"
+#include "row_vector3.hpp"
+
+template<typename T>
+class RowVector3; 
 
 template <typename T>
-class Vector3 : public VectorX<T, 3> {
+class Vector3 : public Vector<T, 3> {
     public:
     // Constructor
     Vector3();
     
     Vector3(const T& x, const T& y, const T& z);
+
+    Vector3(const Vector<T, 3>& vector);
+
+    Vector3 Zero();
+
+    Vector3 One();
+
+    Vector3 Unit(int direction);
 
     // Access x, y, z directly
     T& x() { return this->data[0]; }
@@ -27,6 +38,16 @@ class Vector3 : public VectorX<T, 3> {
 
     // Specific utils
     Vector3<T> cross(const Vector3<T>& other) const;
+
+    // Rewrite transpose
+    RowVector3<T> transpose() const override;
     
 
 };
+
+#include "vector3.inl"
+
+// Custom vector types
+using Vector3f = Vector3<float>;
+using Vector3d = Vector3<double>;
+using Vector3i = Vector3<int>;
