@@ -6,7 +6,7 @@
 #include <type_traits>
 #include "row_vector.hpp"
 #include "vector3.hpp"
-#include "matrix3.hpp"
+#include "Matrices/matrix3.hpp"
 
 template <typename T>
 class Vector3;

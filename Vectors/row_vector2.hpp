@@ -6,8 +6,8 @@
 #include <type_traits>
 #include "row_vector.hpp"
 #include "vector2.hpp"
-#include "matrix2.hpp"
-#include "matrix.hpp"
+#include "Matrices/matrix2.hpp"
+#include "Matrices/matrix.hpp"
 
 template <typename T>
 class RowVector2 : public RowVector<T, 2> {

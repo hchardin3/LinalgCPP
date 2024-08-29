@@ -2,7 +2,7 @@
 
 #include <cmath>
 #include "square_matrix.hpp"
-#include "vector3.hpp"
+#include "Vectors/vector3.hpp"
 
 template<typename T>
 class Matrix3 : public MatrixS<T, 3> {
