@@ -29,18 +29,6 @@ public:
 
     static Vector Unit(int size = Size, int direction = 0);
 
-    // Operators
-    Vector operator+(const Vector& other) const;
-    Vector operator-(const Vector& other) const;
-    Vector operator*(const T& scalar) const;
-    Vector operator/(const T& scalar) const;
-
-    // Overloading the +=, -=, *=, /= operators
-    Vector& operator+=(const Vector& other);
-    Vector& operator-=(const Vector& other);
-    Vector& operator*=(const T& scalar);
-    Vector& operator/=(const T& scalar);
-
     // Overloading the [] operator
     T& operator[](int i);
 
@@ -55,6 +43,8 @@ public:
     RowVector<T, Size> transpose() const;
 
     // Additional vector-specific methods can be added here
+    int size() const;
+
     T dot(const Vector& other) const;
 };
 

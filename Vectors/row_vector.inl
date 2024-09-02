@@ -9,9 +9,7 @@ RowVector<T, Size>::RowVector(int size) : Matrix<T, 1, Size>(1, size) {
 }
 
 template <typename T, int Size>
-RowVector<T, Size>::RowVector(const Matrix<T, 1, Size>& other) {
-    this.data = other.data;
-}
+RowVector<T, Size>::RowVector(const Matrix<T, 1, Size>& other) : Matrix<T, 1, Size>(other) {}
 
 template <typename T, int Size>
 RowVector<T, Size> RowVector<T, Size>::Zero(int n) {
@@ -33,62 +31,6 @@ RowVector<T, Size> RowVector<T, Size>::Unit(int n) {
         result = RowVector::Zero(); // Initialize with zeros
         result(n, 0) = T(1);      // Set the n-th element to 1
         return result;
-}
-
-// Operators
-template<typename T, int Size>
-RowVector<T, Size> RowVector<T, Size>::operator+(const RowVector<T, Size>& other) const {
-    return RowVector<T, Size>((*this) + other);
-}
-
-template<typename T, int Size>
-RowVector<T, Size> RowVector<T, Size>::operator-(const RowVector<T, Size>& other) const {
-    return RowVector<T, Size>((*this) - other);
-}
-
-template<typename T, int Size>
-RowVector<T, Size> RowVector<T, Size>::operator*(const T& scalar) const {
-    return RowVector<T, Size>((*this) * scalar);
-}
-
-template<typename T, int Size>
-RowVector<T, Size> RowVector<T, Size>::operator/(const T& scalar) const {
-    return RowVector<T, Size>((*this) / scalar);
-}
-
-template<typename T, int Size>
-template<int N>
-RowVector<T, N> RowVector<T, Size>::operator*(const Matrix<T, Size, N>& other) const {
-    return RowVector<T, N>((*this) * other);
-}
-
-template<typename T, int Size>
-T RowVector<T, Size>::operator*(const Vector<T, Size>& other) const {
-    return (*this) * other;
-}
-
-template<typename T, int Size>
-RowVector<T, Size>& RowVector<T, Size>::operator+=(const RowVector<T, Size>& other) {
-    (*this) = (*this) + other;
-    return *this;
-}
-
-template<typename T, int Size>
-RowVector<T, Size>& RowVector<T, Size>::operator-=(const RowVector<T, Size>& other) {
-    (*this) = (*this) - other;
-    return *this;
-}
-
-template<typename T, int Size>
-RowVector<T, Size>& RowVector<T, Size>::operator*=(const T& scalar) {
-    (*this) = (*this) * scalar;
-    return *this;
-}
-
-template<typename T, int Size>
-RowVector<T, Size>& RowVector<T, Size>::operator/=(const T& scalar) {
-    (*this) = (*this) / scalar;
-    return *this;
 }
 
 // Overloading the [] operator
@@ -128,6 +70,11 @@ const T& RowVector<T, Size>::operator()(int i) const {
         throw std::out_of_range("Index out of range");
     }
     return this->data[i];
+}
+
+template<typename T, int Size>
+int RowVector<T, Size>::size() const {
+    return this->actual_cols;
 }
 
 template<typename T, int Size>

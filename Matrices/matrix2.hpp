@@ -2,7 +2,7 @@
 
 #include <cmath>
 #include "square_matrix.hpp"
-#include "Vectors/vector2.hpp"
+#include "../Vectors/vector2.hpp"
 
 template<typename T>
 class Matrix2 : public MatrixS<T, 2> {
@@ -11,41 +11,19 @@ public:
     Matrix2();
     Matrix2(const Matrix<T, 2, 2>& m);
 
+    Matrix2(const MatrixS<T, 2>& m);
+
     static Matrix2 Zero();
 
     static Matrix2 One();
 
     static Matrix2 Identity();
 
-    // Operators
-
-    Matrix2 operator+(const Matrix2& other) const;
-
-    Matrix2 operator-(const Matrix2& other) const;
-
-    Matrix2 operator*(const Matrix2& other) const;
-
-    Matrix2 operator*(T scalar) const;
-
-    Matrix2 operator/(T scalar) const;
-
-    Matrix2& operator+=(const Matrix2& other);
-
-    Matrix2& operator-=(const Matrix2& other);
-
-    Matrix2& operator*=(const Matrix2& other);
-
-    Matrix2& operator*=(T scalar);
-
-    Matrix2& operator/=(T scalar);
-
-    // Vector operations
-    Vector2<T> operator*(const Vector2<T>& other) const;
-
     // Static method to create a 2x2 rotation matrix
     static Matrix2<T> Rotation(T angle_in_radians);
 
     // Additional 2x2 specific methods can be added here
+    Matrix2 inverse() const;
 };
 
 #include "matrix2.inl"

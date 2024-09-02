@@ -10,8 +10,12 @@ Vector2<T>::Vector2(const T& x, const T& y) : Vector<T, 2>() {
 }
 
 template <typename T>
-Vector2<T>::Vector2(const Vector<T, 2>& vector) {
+Vector2<T>::Vector2(const Vector<T, 2>& vector) : Vector<T, 2>() {
     this.data = vector.data;
+}
+
+template <typename T>
+Vector2<T>::Vector2(const Matrix<T, 2, 1>& matrix) : Vector<T, 2>(matrix) {
 }
 
 template <typename T>
@@ -36,54 +40,6 @@ Vector2<T> Vector2<T>::Unit(int direction) {
         default:
             throw std::out_of_range("Invalid direction for unit vector");
     }
-}
-
-// Operators
-template<typename T>
-Vector2<T> Vector2<T>::operator+(const Vector2<T>& other) const {
-    return Vector2((*this) + other);
-}
-
-template<typename T>
-Vector2<T> Vector2<T>::operator-(const Vector2<T>& other) const {
-    return Vector2((*this) - other);
-}
-
-template <typename T>
-Vector2<T> Vector2<T>::operator*(const T& scalar) const {
-    return Vector2((*this) * scalar);
-}
-
-template <typename T>
-Vector2<T> Vector2<T>::operator/(const T& scalar) const {
-    return Vector2((*this) / scalar);
-}
-
-template <typename T>
-Vector2<T>& Vector2<T>::operator+=(const Vector2<T>& other) {
-    (*this) = (*this) + other;
-    return true;
-}
-
-template <typename T>
-Vector2<T>& Vector2<T>::operator-=(const Vector2<T>& other) {
-    (*this) = (*this) - other;
-    return true;
-}
-
-template <typename T>
-Vector2<T>& Vector2<T>::operator*=(const T& scalar) {
-    (*this) = (*this) * scalar;
-    return true;
-}
-
-template <typename T>
-Vector2<T>& Vector2<T>::operator/=(const T& scalar) {
-    if(scalar == 0) {
-        throw std::runtime_error("Cannot divide by zero");
-    }
-    (*this) = (*this) / scalar;
-    return true;
 }
 
 // Functions

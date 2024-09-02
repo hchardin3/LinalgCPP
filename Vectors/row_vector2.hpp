@@ -6,8 +6,8 @@
 #include <type_traits>
 #include "row_vector.hpp"
 #include "vector2.hpp"
-#include "Matrices/matrix2.hpp"
-#include "Matrices/matrix.hpp"
+#include "../Matrices/matrix2.hpp"
+#include "../Matrices/matrix.hpp"
 
 template <typename T>
 class RowVector2 : public RowVector<T, 2> {
@@ -24,19 +24,6 @@ class RowVector2 : public RowVector<T, 2> {
 
     static RowVector2 One();
     static RowVector2 Unit(int direction);
-
-    // Operators
-    RowVector2 operator+(const RowVector2& other) const;
-    RowVector2 operator-(const RowVector2& other) const;
-    RowVector2 operator*(const T& scalar) const;
-    RowVector2 operator/(const T& scalar) const;
-
-    RowVector2& operator+=(const RowVector2& other);
-    RowVector2& operator-=(const RowVector2& other);
-    RowVector2& operator*=(const T& scalar);
-    RowVector2& operator/=(const T& scalar);
-
-    RowVector2 operator*(const Matrix2<T>& matrix) const;
 
     // Access x, y directly
     T& x() { return this->data[0]; }

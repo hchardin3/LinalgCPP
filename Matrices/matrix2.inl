@@ -8,6 +8,9 @@ template<typename T>
 Matrix2<T>::Matrix2(const Matrix<T, 2, 2>& m) : MatrixS<T, 2>(m) {}
 
 template<typename T>
+Matrix2<T>::Matrix2(const MatrixS<T, 2>& m) : MatrixS<T, 2>(m) {}
+
+template<typename T>
 Matrix2<T> Matrix2<T>::Zero()  {
     return Matrix2<T>(MatrixS<T, 2>::Zero(2));
 }
@@ -20,68 +23,6 @@ Matrix2<T> Matrix2<T>::One() {
 template<typename T>
 Matrix2<T> Matrix2<T>::Identity()  {
     return Matrix2<T>(MatrixS<T, 2>::Identity(2));
-}
-
-// Operators
-template<typename T>
-Matrix2<T> Matrix2<T>::operator+(const Matrix2<T>& other) const {
-    return Matrix2<T>((*this) + other);
-}
-
-template<typename T>
-Matrix2<T> Matrix2<T>::operator-(const Matrix2<T>& other) const {
-    return Matrix2<T>((*this) - other);;
-}
-
-template<typename T>
-Matrix2<T> Matrix2<T>::operator*(const Matrix2<T>& other) const {
-    return Matrix2<T>((*this) * other);
-}
-
-template<typename T>
-Matrix2<T> Matrix2<T>::operator*(T scalar) const {
-    return Matrix2<T>((*this) * scalar);
-}
-
-template<typename T>
-Matrix2<T> Matrix2<T>::operator/(T scalar) const {
-    return Matrix2<T>((*this) / scalar);
-}
-
-template<typename T>
-Matrix2<T>& Matrix2<T>::operator+=(const Matrix2<T>& other) {
-    (*this) = (*this) + other;
-    return *this;
-}
-
-template<typename T>
-Matrix2<T>& Matrix2<T>::operator-=(const Matrix2<T>& other) {
-    (*this) = (*this) - other;
-    return *this;
-}
-
-template<typename T>
-Matrix2<T>& Matrix2<T>::operator*=(const Matrix2<T>& other) {
-    (*this) = (*this) * other;
-    return *this;
-}
-
-template<typename T>
-Matrix2<T>& Matrix2<T>::operator*=(T scalar) {
-    (*this) = (*this) * scalar;
-    return *this;
-}
-
-template<typename T>
-Matrix2<T>& Matrix2<T>::operator/=(T scalar) {
-    (*this) = (*this) / scalar;
-    return *this;
-}
-
-// Vector operations
-template<typename T>
-Vector2<T> Matrix2<T>::operator*(const Vector2<T>& other) const {
-    return Vector2<T>((*this) * other);
 }
 
 // Method to create a 2x2 rotation matrix
@@ -99,7 +40,19 @@ Matrix2<T> Matrix2<T>::Rotation(T angle_in_radians) {
     return rotation_matrix;
 }
 
-// Explicit template instantiation for commonly used types
-template class Matrix2<double>;
-template class Matrix2<int>;
-template class Matrix2<float>;
+template<typename T>
+Matrix2<T> Matrix2<T>::inverse() const {
+    T det = (*this).determinant();
+    if (std::abs(det) < std::numeric_limits<T>::epsilon()) {
+        throw std::runtime_error("Matrix is singular");
+    }
+
+    T inv_determinant = 1.0 / det;
+
+    Matrix2<T> inverse_matrix;
+    inverse_matrix(0, 0) = (*this)(1, 1) * inv_determinant;
+    inverse_matrix(0, 1) = -(*this)(0, 1) * inv_determinant;
+    inverse_matrix(1, 0) = -(*this)(1, 0) * inv_determinant;
+    inverse_matrix(1, 1) = (*this)(0, 0) * inv_determinant;
+    return inverse_matrix;
+}

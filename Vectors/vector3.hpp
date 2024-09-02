@@ -20,6 +20,8 @@ class Vector3 : public Vector<T, 3> {
 
     Vector3(const Vector<T, 3>& vector);
 
+    Vector3(const Matrix<T, 3, 1>& matrix);
+
     static Vector3 Zero();
 
     static Vector3 One();

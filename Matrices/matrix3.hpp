@@ -2,7 +2,7 @@
 
 #include <cmath>
 #include "square_matrix.hpp"
-#include "Vectors/vector3.hpp"
+#include "../Vectors/vector3.hpp"
 
 template<typename T>
 class Matrix3 : public MatrixS<T, 3> {
@@ -20,26 +20,13 @@ public:
 
     static Matrix3 Identity();
 
-    // Operators
-    Matrix3 operator+(const Matrix3& other) const;
-    Matrix3 operator-(const Matrix3& other) const;
-    Matrix3 operator*(const Matrix3& other) const;
-    Matrix3 operator*(T scalar) const;
-    Matrix3 operator/(T scalar) const;
-    Vector3<T> operator*(const Vector3<T>& vector) const;
-
-    Matrix3& operator+=(const Matrix3& other);
-    Matrix3& operator-=(const Matrix3& other);
-    Matrix3& operator*=(const Matrix3& other);
-    Matrix3& operator/=(T scalar);
-    Matrix3& operator*=(T scalar);
-
     // Static methods to create 3x3 rotation matrices
     static Matrix3<T> RotationX(T angle_in_radians);
     static Matrix3<T> RotationY(T angle_in_radians);
     static Matrix3<T> RotationZ(T angle_in_radians);
 
     // Additional 3x3 specific methods can be added here
+    Matrix3 inverse() const;
 };
 
 #include "matrix3.inl"

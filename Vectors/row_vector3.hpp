@@ -6,13 +6,13 @@
 #include <type_traits>
 #include "row_vector.hpp"
 #include "vector3.hpp"
-#include "Matrices/matrix3.hpp"
+#include "../Matrices/matrix3.hpp"
 
 template <typename T>
 class Vector3;
 
 template <typename T>
-class RowVector3 : public Vector<T, 3> {
+class RowVector3 : public RowVector<T, 3> {
     public:
     // Constructor
     RowVector3();
@@ -21,24 +21,13 @@ class RowVector3 : public Vector<T, 3> {
     
     RowVector3(const T& x, const T& y, const T& z);
 
+    RowVector3(const Matrix<T, 1, 3>& matrix);
+
     // Special constructors
     static RowVector3 Zero();
 
     static RowVector3 One();
     static RowVector3 Unit(int direction);
-
-    // Operators
-    RowVector3 operator+(const RowVector3& other) const;
-    RowVector3 operator-(const RowVector3& other) const;
-    RowVector3 operator*(const T& scalar) const;
-    RowVector3 operator/(const T& scalar) const;
-
-    RowVector3& operator+=(const RowVector3& other);
-    RowVector3& operator-=(const RowVector3& other);
-    RowVector3& operator*=(const T& scalar);
-    RowVector3& operator/=(const T& scalar);
-
-    RowVector3 operator*(const Matrix3<T>& matrix) const;
 
     // Access x, y, z directly
     T& x() { return this->data[0]; }

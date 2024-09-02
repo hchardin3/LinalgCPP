@@ -20,22 +20,13 @@ class Vector2 : public Vector<T, 2> {
 
     Vector2(const Vector<T, 2>& vector);
 
+    Vector2(const Matrix<T, 2, 1>& matrix);
+
     static Vector2 Zero();
 
     static Vector2 One();
 
     static Vector2 Unit(int direction);
-
-    // Operators
-    Vector2 operator+(const Vector2& other) const;
-    Vector2 operator-(const Vector2& other) const;
-    Vector2 operator*(const T& scalar) const;
-    Vector2 operator/(const T& scalar) const;
-
-    Vector2& operator+=(const Vector2& other);
-    Vector2& operator-=(const Vector2& other);
-    Vector2& operator*=(const T& scalar);
-    Vector2& operator/=(const T& scalar);
 
     // Access x, y directly
     T& x() { return this->data[0]; }

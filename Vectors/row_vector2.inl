@@ -35,39 +35,6 @@ RowVector2<T> RowVector2<T>::Unit(int direction) {
     }
 }
 
-// Operators
-template<typename T>
-RowVector2<T> RowVector2<T>::operator+(const RowVector2<T>& other) const {
-    return RowVector2((*this) + other);
-}
-
-template<typename T>
-RowVector2<T> RowVector2<T>::operator-(const RowVector2<T>& other) const {
-    return RowVector2((*this) - other);
-}
-
-template <typename T>
-RowVector2<T> RowVector2<T>::operator*(const T& scalar) const {
-    return RowVector2((*this) * scalar);
-}
-
-template <typename T>
-RowVector2<T> RowVector2<T>::operator/(const T& scalar) const {
-    return RowVector2((*this) / scalar);
-}
-
-template <typename T>
-RowVector2<T>& RowVector2<T>::operator+=(const RowVector2<T>& other) {
-    (*this) = (*this) + other;
-    return true;
-}
-
-template <typename T>
-RowVector2<T>& RowVector2<T>::operator-=(const RowVector2<T>& other) {
-    (*this) = (*this) - other;
-    return true;
-}
-
 // Functions
 template <typename T>
 T RowVector2<T>::angle(const RowVector2<T>& other) const {

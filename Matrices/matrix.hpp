@@ -66,8 +66,11 @@ class Matrix {
     template<int OtherRows, int OtherCols>
     Matrix<T, Rows, OtherCols> operator*=(const Matrix<T, OtherRows, OtherCols>& other);
 
+    // Conversion operator for Matrix<T, 1, 1> to T
+    operator T() const;
+
     // Other functions
-    std::pair<int, int> shape() const;
+    const std::pair<const int, const int> shape() const;
 
     Matrix<T, Cols, Rows> transpose() const;
 

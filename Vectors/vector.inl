@@ -61,52 +61,6 @@ Vector<T, Size> Vector<T, Size>::Unit(int size, int direction) {
     }
 }
 
-// Operators
-template <typename T, int Size>
-Vector<T, Size> Vector<T, Size>::operator+(const Vector& other) const {
-    return Vector<T, Size>((*this) + other);
-}
-
-template <typename T, int Size>
-Vector<T, Size> Vector<T, Size>::operator-(const Vector& other) const {
-    return Vector<T, Size>((*this) - other);
-}
-
-template <typename T, int Size>
-Vector<T, Size> Vector<T, Size>::operator*(const T& scalar) const {
-    return Vector<T, Size>((*this) * scalar);
-}
-
-template <typename T, int Size>
-Vector<T, Size> Vector<T, Size>::operator/(const T& scalar) const {
-    return Vector<T, Size>((*this) / scalar);
-}
-
-// Overloading the +=, -=, *=, /= operators
-template <typename T, int Size>
-Vector<T, Size>& Vector<T, Size>::operator+=(const Vector& other) {
-    (*this) = (*this) + other;
-    return *this;
-}
-
-template <typename T, int Size>
-Vector<T, Size>& Vector<T, Size>::operator-=(const Vector& other) {
-    (*this) = (*this) - other;
-    return *this;
-}
-
-template <typename T, int Size>
-Vector<T, Size>& Vector<T, Size>::operator*=(const T& scalar) {
-    (*this) = (*this) * scalar;
-    return *this;
-}
-
-template <typename T, int Size>
-Vector<T, Size>& Vector<T, Size>::operator/=(const T& scalar) {
-    (*this) = (*this) / scalar;
-    return *this;
-}
-
 // Overloading the [] operator
 template<typename T, int Size>
 T& Vector<T, Size>::operator[](int i) {
@@ -156,6 +110,11 @@ RowVector<T, Size> Vector<T, Size>::transpose() const {
 }
 
 // Other methods
+template<typename T, int Size>
+int Vector<T, Size>::size() const {
+    return (*this).actual_rows;
+}
+
 template <typename T, int Size>
 T Vector<T, Size>::dot(const Vector& other) const {
     if (Size!= other.size()) {

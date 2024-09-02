@@ -27,24 +27,6 @@ public:
     static RowVector One(int n);
     static RowVector Unit(int n);
 
-    // Operators
-    RowVector operator+(const RowVector& other) const;
-    RowVector operator-(const RowVector& other) const;
-    RowVector operator*(const T& scalar) const;
-    RowVector operator/(const T& scalar) const;
-
-    template<int N>
-    RowVector<T, N> operator*(const Matrix<T, Size, N>& other) const;
-
-    T operator*(const Vector<T, Size>& other) const;
-
-    RowVector& operator+=(const RowVector& other);
-    RowVector& operator-=(const RowVector& other);
-    RowVector& operator*=(const T& scalar);
-    RowVector& operator/=(const T& scalar);
-
-
-
     // Overloading the [] operator
     T& operator[](int i);
 
@@ -54,6 +36,9 @@ public:
     T& operator()(int i);
 
     const T& operator()(int i) const;
+
+    // Size Method
+    int size() const;
 
     // Transpose Method
     Vector<T, Size> transpose() const;

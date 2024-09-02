@@ -21,28 +21,6 @@ public:
 
     static MatrixS Identity(int size);
 
-    // Operators
-
-    MatrixS operator+(const MatrixS<T, Size>& other) const;
-
-    MatrixS operator-(const MatrixS<T, Size>& other) const;
-
-    MatrixS operator*(const MatrixS<T, Size>& other) const;
-
-    MatrixS operator*(const T& scalar) const;
-
-    MatrixS operator/(const T& scalar) const;
-
-    MatrixS& operator+=(const MatrixS<T, Size>& other);
-
-    MatrixS& operator-=(const MatrixS<T, Size>& other);
-
-    MatrixS& operator*=(const MatrixS<T, Size>& other);
-
-    MatrixS& operator*=(const T& scalar);
-
-    MatrixS& operator/=(const T& scalar);
-
     // Class methods
     T trace() const;
 

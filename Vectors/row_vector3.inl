@@ -1,17 +1,20 @@
 #include "row_vector3.hpp"
 
 template<typename T>
-RowVector3<T>::RowVector3() : Vector<T, 3>() {}
+RowVector3<T>::RowVector3() : RowVector<T, 3>() {}
 
 template <typename T>
 RowVector3<T>::RowVector3(const RowVector<T, 3>& other) : RowVector<T, 3>(other) {}
 
 template<typename T>
-RowVector3<T>::RowVector3(const T& x, const T& y, const T& z) : Vector<T, 3>() {
+RowVector3<T>::RowVector3(const T& x, const T& y, const T& z) : RowVector<T, 3>() {
     this->data[0] = x;
     this->data[1] = y;
     this->data[2] = z;
 }
+
+template<typename T>
+RowVector3<T>::RowVector3(const Matrix<T, 1, 3>& matrix) : RowVector<T, 3>(matrix) {}
 
 // Special constructors
 template <typename T>
@@ -38,39 +41,6 @@ RowVector3<T> RowVector3<T>::Unit(int direction) {
     }
 }
 
-// Operators
-template<typename T>
-RowVector3<T> RowVector3<T>::operator+(const RowVector3<T>& other) const {
-    return RowVector3((*this) + other);
-}
-
-template<typename T>
-RowVector3<T> RowVector3<T>::operator-(const RowVector3<T>& other) const {
-    return RowVector3((*this) - other);
-}
-
-template <typename T>
-RowVector3<T> RowVector3<T>::operator*(const T& scalar) const {
-    return RowVector3((*this) * scalar);
-}
-
-template <typename T>
-RowVector3<T> RowVector3<T>::operator/(const T& scalar) const {
-    return RowVector3((*this) / scalar);
-}
-
-template <typename T>
-RowVector3<T>& RowVector3<T>::operator+=(const RowVector3<T>& other) {
-    (*this) = (*this) + other;
-    return true;
-}
-
-template <typename T>
-RowVector3<T>& RowVector3<T>::operator-=(const RowVector3<T>& other) {
-    (*this) = (*this) - other;
-    return true;
-}
-
 // Specific utils
 template<typename T>
 RowVector3<T> RowVector3<T>::cross(const RowVector3<T>& other) const {
@@ -83,8 +53,8 @@ RowVector3<T> RowVector3<T>::cross(const RowVector3<T>& other) const {
 
 template<typename T>
 Vector3<T> RowVector3<T>::transpose() const {
-    Vector3<T> result(this->actual_size);
-    for (int i = 0; i < this->actual_size; ++i) {
+    Vector3<T> result;
+    for (int i = 0; i < this->actual_cols; ++i) {
         result(i) = this->data[i];
     }
     return result;

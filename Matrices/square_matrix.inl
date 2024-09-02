@@ -30,63 +30,6 @@ MatrixS<T, Size> MatrixS<T, Size>::Identity(int size) {
     return result;
 }
 
-// Operators
-
-template <typename T, int Size>
-MatrixS<T, Size> MatrixS<T, Size>::operator+(const MatrixS<T, Size>& other) const {
-    return MatrixS<T, Size>(*this + other);
-}
-
-template <typename T, int Size>
-MatrixS<T, Size> MatrixS<T, Size>::operator-(const MatrixS<T, Size>& other) const {
-    return MatrixS<T, Size>(*this - other);
-}
-
-template <typename T, int Size>
-MatrixS<T, Size> MatrixS<T, Size>::operator*(const MatrixS<T, Size>& other) const {
-    return MatrixS<T, Size>(*this * other);
-}
-
-template <typename T, int Size>
-MatrixS<T, Size> MatrixS<T, Size>::operator*(const T& scalar) const {
-    return MatrixS<T, Size>(*this * scalar);
-}
-
-template <typename T, int Size>
-MatrixS<T, Size> MatrixS<T, Size>::operator/(const T& scalar) const {
-    return MatrixS<T, Size>(*this / scalar);
-}
-
-template <typename T, int Size>
-MatrixS<T, Size>& MatrixS<T, Size>::operator+=(const MatrixS<T, Size>& other) {
-    *this = *this + other;
-    return MatrixS<T, Size>(*this);
-}
-
-template <typename T, int Size>
-MatrixS<T, Size>& MatrixS<T, Size>::operator-=(const MatrixS<T, Size>& other) {
-    *this = *this - other;
-    return MatrixS<T, Size>(*this);
-}
-
-template <typename T, int Size>
-MatrixS<T, Size>& MatrixS<T, Size>::operator*=(const MatrixS<T, Size>& other) {
-    *this = *this * other;
-    return MatrixS<T, Size>(*this);
-}
-
-template <typename T, int Size>
-MatrixS<T, Size>& MatrixS<T, Size>::operator*=(const T& scalar) {
-    *this = *this * scalar;
-    return MatrixS<T, Size>(*this);
-}
-
-template <typename T, int Size>
-MatrixS<T, Size>& MatrixS<T, Size>::operator/=(const T& scalar) {
-    *this = *this / scalar;
-    return MatrixS<T, Size>(*this);
-}
-
 // Trace
 template <typename T, int Size>
 T MatrixS<T, Size>::trace() const {

@@ -142,7 +142,7 @@ Matrix<T, Rows, Cols> Matrix<T, Rows, Cols>::operator+(const Matrix<T, Rows, Col
     Matrix result;
     for(int i = 0; i < actual_rows; ++i) {
         for (int j = 0; j < actual_cols; ++j) {
-            result(i, j) = (*this)(i, j) + other(i, j);
+            result(i, j) = (*this).operator()(i, j) + other(i, j);
         }
     }
     return result;
@@ -156,7 +156,7 @@ Matrix<T, Rows, Cols> Matrix<T, Rows, Cols>::operator-(const Matrix<T, Rows, Col
     Matrix result;
     for(int i = 0; i < actual_rows; ++i) {
         for (int j = 0; j < actual_cols; ++j) {
-            result(i, j) = (*this)(i, j) - other(i, j);
+            result(i, j) = (*this).operator()(i, j) - other(i, j);
         }
     }
     return result;
@@ -169,7 +169,7 @@ Matrix<T, Rows, Cols>& Matrix<T, Rows, Cols>::operator+=(const Matrix<T, Rows, C
     }
     for(int i = 0; i < actual_rows; ++i) {
         for (int j = 0; j < actual_cols; ++j) {
-            (*this)(i, j) += other(i, j);
+            (*this).operator()(i, j) += other(i, j);
         }
     }
     return *this;
@@ -182,7 +182,7 @@ Matrix<T, Rows, Cols>& Matrix<T, Rows, Cols>::operator-=(const Matrix<T, Rows, C
     }
     for(int i = 0; i < actual_rows; ++i) {
         for (int j = 0; j < actual_cols; ++j) {
-            (*this)(i, j) -= other(i, j);
+            (*this).operator()(i, j) -= other(i, j);
         }
     }
     return *this;
@@ -217,7 +217,7 @@ template<typename T, int Rows, int Cols>
 Matrix<T, Rows, Cols>& Matrix<T, Rows, Cols>::operator*=(const T& scalar) {
     for(int i = 0; i < actual_rows; ++i) {
         for (int j = 0; j < actual_cols; ++j) {
-            (*this)(i, j) *= scalar;
+            (*this).operator()(i, j) *= scalar;
         }
     }
     return *this;
@@ -230,7 +230,7 @@ Matrix<T, Rows, Cols>& Matrix<T, Rows, Cols>::operator/=(const T& scalar) {
     }
     for(int i = 0; i < actual_rows; ++i) {
         for (int j = 0; j < actual_cols; ++j) {
-            (*this)(i, j) /= scalar;
+            (*this).operator()(i, j) /= scalar;
         }
     }
     return *this;
@@ -239,14 +239,17 @@ Matrix<T, Rows, Cols>& Matrix<T, Rows, Cols>::operator/=(const T& scalar) {
 template<typename T, int Rows, int Cols>
 template<int OtherRows, int OtherCols>
 Matrix<T, Rows, OtherCols> Matrix<T, Rows, Cols>::operator*(const Matrix<T, OtherRows, OtherCols>& other) const {
-    if (this->actual_cols != other.actual_rows) {
+    const std::pair<const int, const int> other_shape = other.shape();
+    const int other_rows = other_shape.first;
+    const int other_cols = other_shape.second;
+    if (this->actual_cols != other_rows) {
         throw std::invalid_argument("Matrices must have compatible dimensions for multiplication");
     }
-    Matrix<T, this->actual_rows, other.actual_cols> result;
+    Matrix<T, Rows, OtherCols> result;
     for(int i = 0; i < actual_rows; ++i) {
-        for (int j = 0; j < other.actual_cols; ++j) {
-            (result)(i, j) = T(0);
-            for (int k = 0; k < other.actual_rows; ++k) {
+        for (int j = 0; j < other_cols; ++j) {
+            result(i, j) = T(0);
+            for (int k = 0; k < other_rows; ++k) {
                 (result)(i, j) += (*this)(i, k) * other(k, j);
             }
         }
@@ -271,9 +274,16 @@ template<int OtherRows, int OtherCols>
     return *this;
   }
 
+// Conversion operator for Matrix<T, 1, 1> to T
+template<typename T, int Rows, int Cols>
+Matrix<T, Rows, Cols>::operator T() const  {
+    static_assert(Rows == 1 && Cols == 1, "Conversion is only valid for Matrix<T, 1, 1>");
+    return data[0];
+}
+
 // Other functions
 template<typename T, int Rows, int Cols>
-std::pair<int, int> Matrix<T, Rows, Cols>::shape() const {
+const std::pair<const int, const int> Matrix<T, Rows, Cols>::shape() const {
     return std::make_pair(actual_rows, actual_cols);
 }
 
@@ -282,7 +292,7 @@ Matrix<T, Cols, Rows> Matrix<T, Rows, Cols>::transpose() const {
     Matrix<T, Cols, Rows> result(this->actual_cols, this->actual_rows);
     for(int j = 0; j < actual_cols; ++j) {
         for (int i = 0; i < actual_rows; ++i) {
-            result(j, i) = (*this)(i, j);
+            result(j, i) = (*this).operator()(i, j);
         }
     }
     return result;
@@ -318,7 +328,7 @@ T Matrix<T, Rows, Cols>::norm(NormType type) const {
         for (int i = 0; i < actual_rows; ++i) {
             T row_sum = T(0);
             for (int j = 0; j < actual_cols; ++j) {
-                row_sum += std::abs((*this)(i, j));
+                row_sum += std::abs((*this).operator()(i, j));
             }
             sum = std::max(sum, row_sum);
         }
@@ -326,7 +336,7 @@ T Matrix<T, Rows, Cols>::norm(NormType type) const {
     } else {
         for (int i = 0; i < actual_rows; ++i) {
             for (int j = 0; j < actual_cols; ++j) {
-                T element = (*this)(i, j);
+                T element = (*this).operator()(i, j);
                 sum += std::pow(std::abs(element), static_cast<int>(type));
             }
         }
@@ -350,7 +360,7 @@ void Matrix<T, Rows, Cols>::display() const {
     std::cout << "----------------------------------------" << std::endl;
     for(int i = 0; i < actual_rows; ++i) {
         for (int j = 0; j < actual_cols; ++j) {
-            std::cout << (*this)(i, j) << " ";
+            std::cout << (*this).operator()(i, j) << " ";
         }
         std::cout << std::endl;
     }
