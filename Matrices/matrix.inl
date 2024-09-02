@@ -345,8 +345,8 @@ T Matrix<T, Rows, Cols>::norm(NormType type) const {
 }
 
 template<typename T, int Rows, int Cols>
-Matrix<T, Rows, Cols> Matrix<T, Rows, Cols>::normalize() const{
-    T norm_val = this->norm();
+Matrix<T, Rows, Cols> Matrix<T, Rows, Cols>::normalize(NormType type = NormType::L2) const{
+    T norm_val = this->norm(type);
     if (norm_val == T(0)) {
         throw std::invalid_argument("Cannot normalize a zero-matrix");
     }

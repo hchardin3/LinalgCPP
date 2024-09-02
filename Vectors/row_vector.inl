@@ -12,24 +12,24 @@ template <typename T, int Size>
 RowVector<T, Size>::RowVector(const Matrix<T, 1, Size>& other) : Matrix<T, 1, Size>(other) {}
 
 template <typename T, int Size>
-RowVector<T, Size> RowVector<T, Size>::Zero(int n) {
-    return RowVector<T, Size>(Matrix<T, 1, Size>::Zero(1, n));
+RowVector<T, Size> RowVector<T, Size>::Zero(int size) {
+    return RowVector<T, Size>(Matrix<T, 1, Size>::Zero(1, size));
 }
 
 template <typename T, int Size>
-RowVector<T, Size> RowVector<T, Size>::One(int n) {
-    return RowVector<T, Size>(Matrix<T, 1, Size>::Ones(1, n));
+RowVector<T, Size> RowVector<T, Size>::One(int size) {
+    return RowVector<T, Size>(Matrix<T, 1, Size>::Ones(1, size));
 }
 
 template <typename T, int Size>
-RowVector<T, Size> RowVector<T, Size>::Unit(int n) { 
-        if (n < 0) {n += Size;}  // Handle negative indices
-        if (n < 0 || n >= Size) {
+RowVector<T, Size> RowVector<T, Size>::Unit(int size, int direction) { 
+        if (direction < 0) {direction += size;}  // Handle negative indices
+        if (direction < 0 || direction >= size) {
             throw std::out_of_range("Index out of range for unit vector");
         }
         RowVector result;
-        result = RowVector::Zero(); // Initialize with zeros
-        result(n, 0) = T(1);      // Set the n-th element to 1
+        result = RowVector::Zero(size); // Initialize with zeros
+        result(direction, 0) = T(1);      // Set the n-th element to 1
         return result;
 }
 
