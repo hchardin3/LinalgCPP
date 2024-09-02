@@ -17,6 +17,8 @@ class RowVector2 : public RowVector<T, 2> {
 
     RowVector2(const RowVector<T, 2>& other);
 
+    RowVector2(const Matrix<T, 1, 2>& other);
+
     RowVector2(const T& x, const T& y);
 
     // Special constructors

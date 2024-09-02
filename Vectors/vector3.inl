@@ -11,11 +11,7 @@ Vector3<T>::Vector3(const T& x, const T& y, const T& z) : Vector<T, 3>() {
 }
 
 template<typename T>
-Vector3<T>::Vector3(const Vector<T, 3>& vector) : Vector<T, 3>() {
-    this->data[0] = vector[0];
-    this->data[1] = vector[1];
-    this->data[2] = vector[2];
-}
+Vector3<T>::Vector3(const Vector<T, 3>& vector) : Vector<T, 3>(vector) {}
 
 template<typename T>
 Vector3<T>::Vector3(const Matrix<T, 3, 1>& matrix) : Vector<T, 3>(matrix) {}

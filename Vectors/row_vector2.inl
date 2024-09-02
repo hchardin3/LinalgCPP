@@ -7,6 +7,9 @@ template <typename T>
 RowVector2<T>::RowVector2(const RowVector<T, 2>& other) : RowVector<T, 2>(other) {}
 
 template <typename T>
+RowVector2<T>::RowVector2(const Matrix<T, 1, 2>& other) : RowVector<T, 2>(other) {}
+
+template <typename T>
 RowVector2<T>::RowVector2(const T& x, const T& y) : RowVector<T, 2>() {
         this->data[0] = x;
         this->data[1] = y;

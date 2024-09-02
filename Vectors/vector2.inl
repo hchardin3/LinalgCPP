@@ -10,9 +10,7 @@ Vector2<T>::Vector2(const T& x, const T& y) : Vector<T, 2>() {
 }
 
 template <typename T>
-Vector2<T>::Vector2(const Vector<T, 2>& vector) : Vector<T, 2>() {
-    this.data = vector.data;
-}
+Vector2<T>::Vector2(const Vector<T, 2>& vector) : Vector<T, 2>(vector) {}
 
 template <typename T>
 Vector2<T>::Vector2(const Matrix<T, 2, 1>& matrix) : Vector<T, 2>(matrix) {
