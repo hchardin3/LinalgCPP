@@ -277,7 +277,7 @@ template<int OtherRows, int OtherCols>
 // Conversion operator for Matrix<T, 1, 1> to T
 template<typename T, int Rows, int Cols>
 Matrix<T, Rows, Cols>::operator T() const  {
-    static_assert(Rows == 1 && Cols == 1, "Conversion is only valid for Matrix<T, 1, 1>");
+    static_assert(Rows == 1 && Cols == 1, "Conversion to type T is only valid for Matrix<T, 1, 1>");
     return data[0];
 }
 
